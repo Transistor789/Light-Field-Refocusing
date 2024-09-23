@@ -7,8 +7,7 @@ channels = 1;
 LF = zeros(umax, vmax, xmax, ymax, channels);
 for i=1:umax
     for j=1:vmax
-        filename = sprintf("input/%d_%d.bmp",i,j);
-        image = imread(sprintf("input/%d_%d.bmp",i,j));
+        image = imread(sprintf("../input/%d_%d.bmp",i,j));
         if channels == 1
             image = rgb2gray(image);
         end
