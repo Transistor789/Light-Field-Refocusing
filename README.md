@@ -1,8 +1,8 @@
 # Light Field Refocusing
 
-This project consists of the following folders:
+This is a light field refocusing algorithm calculated in the spatial domain.
 
 - `input/`: Put your sub-aperture images here.
 - `matlab/`: Run `main.m`.
-- `cpp/`: Modify your OpenCV version and library path, then open refocus.sln` and run.
+- `cpp/`: Modify your OpenCV version and library path, then open `refocus.sln` and run.
 
