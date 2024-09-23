@@ -53,8 +53,6 @@ for alpha = 0.5:0.1:1.5
                 yq = min(max(yq,1), ymax);
                 image = squeeze(LF(u,v,:,:,c));
                 temp(:,:,c) = temp(:,:,c) + interp2(image, yq, xq, 'linear');
-
-
             end
         end
     end
