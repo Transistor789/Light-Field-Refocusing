@@ -1,5 +1,8 @@
-# LightFieldRefocusing
+# Light Field Refocusing
 
-MATLAB: Put your sub-aperture images in folder `input` and run `main.m`.
+This project consists of the following folders:
 
-C++: Modify your OpenCV version and library path in the properties, then open `refocus.sln` and run.
+- `input/`: Put your sub-aperture images here.
+- `matlab/`: Run `main.m`.
+- `cpp/`: Modify your OpenCV version and library path, then open refocus.sln` and run.
+
