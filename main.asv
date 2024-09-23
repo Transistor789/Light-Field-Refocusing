@@ -1,0 +1,63 @@
+%% loadLF
+umax = 15;
+vmax = 15;
+xmax = 434;
+ymax = 625;
+channels = 3;
+LF = zeros(umax, vmax, xmax, ymax, channels);
+for i=1:umax
+    for j=1:vmax
+        filename = sprintf("input/%d_%d.bmp",i,j);
+        image = imread(sprintf("input/%d_%d.bmp",i,j));
+        if channels == 1
+            image = rgb2gray(image);
+        end
+        LF(i,j,:,:,:) = im2double(image);
+    end
+end
+%% interpolation Grid
+[xx,yy] = ndgrid(1:xmax,1:ymax);
+ucenter = ceil(umax/2);
+vcenter = ceil(vmax/2);
+%% single image
+alpha = 1.25;
+tic;
+
+temp = zeros(xmax,ymax);
+for u = 1:umax
+    for v = 1:vmax
+        for c = 1:channels
+            xq = xx + (u - ucenter) * (1 - 1/alpha);
+            yq = yy + (v - vcenter) * (1 - 1/alpha);
+            xq = min(max(xq,1), xmax);
+            yq = min(max(yq,1), ymax);
+            image = squeeze(LF(u,v,:,:,c));
+            temp = temp + interp2(image, yq, xq, 'linear');
+        end
+
+    end
+end
+
+result = temp / (umax*vmax);
+imshow(result);
+toc;
+%% multiple images
+tic;
+for alpha = 0.5:0.1:1.5
+    factor = 1-1/alpha;
+    xq = xx + (uu - ucenter) * (1 - 1/alpha);
+    yq = yy + (vv - vcenter) * (1 - 1/alpha);
+    xq = min(max(xq,1), xmax);
+    yq = min(max(yq,1), ymax);
+    if channels == 1
+        temp = interpn(LF, uu, vv, xq, yq,'linear');
+    else
+        temp = interpn(LF, uu, vv, xq, yq, cc,'linear');
+    end
+    result = squeeze(sum(temp, [1,2])) / (umax*vmax);
+    title(["\alpha=", num2str(alpha)]);
+    imshow(result);
+    
+end
+toc;
+
